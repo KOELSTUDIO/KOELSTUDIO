@@ -212,12 +212,12 @@ function renderTicker(){const t=S.ticker.map(o=>`<span>${esc(o.n)} baru saja mem
 /* ===== SLIDER ===== */
 let si=0,sT;
 function renderSl(){const el=$('#sl');el.innerHTML=S.cfg.banners.map((b,i)=>`<div class="slide" style="${b?`background-image:url(${esc(b)})`:''}"><span>${b?'':'Banner '+(i+1)+' · 16:9'}</span></div>`).join('')+'<div class="dots">'+S.cfg.banners.map((_,i)=>`<i onclick="goSl(${i})"></i>`).join('')+'</div>';
- const s=el.querySelectorAll('.slide');gsap.set(s,{opacity:0,zIndex:0,scale:1,xPercent:0});gsap.set(s[si],{opacity:1});dots()}
+ const s=el.querySelectorAll('.slide');if(!s.length)return;if(si>=s.length)si=0;gsap.set(s,{opacity:0,zIndex:0,scale:1,xPercent:0});gsap.set(s[si],{opacity:1});dots()}
 function dots(){document.querySelectorAll('#sl .dots i').forEach((d,i)=>d.classList.toggle('on',i==si))}
-function goSl(n){if(n==si)return;const s=document.querySelectorAll('#sl .slide'),o=s[si],i=s[n];si=n;gsap.killTweensOf(s);gsap.set(s,{zIndex:0});gsap.set(i,{zIndex:2,opacity:0,scale:1.12,xPercent:6});gsap.set(o,{zIndex:1});
+function goSl(n){const s=document.querySelectorAll('#sl .slide');if(s.length<2||n==si||!s[n]||!s[si])return;const o=s[si],i=s[n];si=n;gsap.killTweensOf(s);gsap.set(s,{zIndex:0});gsap.set(i,{zIndex:2,opacity:0,scale:1.12,xPercent:6});gsap.set(o,{zIndex:1});
  gsap.to(o,{opacity:0,scale:.96,xPercent:-6,duration:1.1,ease:'power2.inOut'});gsap.to(i,{opacity:1,scale:1,xPercent:0,duration:1.2,ease:'power3.out'});
- const t=i.querySelector('span');if(t)gsap.from(t,{y:20,opacity:0,duration:.8,delay:.5});dots();clearInterval(sT);sT=setInterval(()=>goSl((si+1)%5),5000)}
-sT=setInterval(()=>goSl((si+1)%5),5000);
+ const t=i.querySelector('span');if(t)gsap.from(t,{y:20,opacity:0,duration:.8,delay:.5});dots();clearInterval(sT);sT=setInterval(()=>goSl((si+1)%(document.querySelectorAll('#sl .slide').length||1)),5000)}
+sT=setInterval(()=>goSl((si+1)%(document.querySelectorAll('#sl .slide').length||1)),5000);
 
 /* ===== ALBUM ===== */
 let ap=0;
@@ -305,8 +305,8 @@ function printImg(){exp((b,p)=>{const r=new FileReader();r.onload=()=>{const f=d
 let tab='o',A={o:[]},sT2;
 const sv=()=>{clearTimeout(sT2);const s=$('#svs');if(s)s.textContent='Menyimpan…';sT2=setTimeout(async()=>{try{await api('admin/cfg',{cfg:S.cfg},1);const s=$('#svs');if(s)s.textContent='✓ Tersimpan'}catch(e){alert(e.message)}},700)};
 const rall=()=>{renderProds();renderMisc();renderSl()};
-function adm(){if(sessionStorage.pin)return admR();openM(`<h2>Masuk Admin</h2><label>Masukkan PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" onkeydown="if(event.key=='Enter')pinGo()"><button class="btn gold" onclick="pinGo()">Masuk</button><p id="pe" style="color:#e58;font-size:13px;margin-top:8px"></p>`);setTimeout(()=>$('#pin')&&$('#pin').focus(),350)}
-async function pinGo(){sessionStorage.pin=$('#pin').value;try{await api('admin/check',null,1);admR()}catch(e){sessionStorage.removeItem('pin');$('#pe').textContent=e.message;gsap.fromTo('#md',{x:-8},{x:0,duration:.5,ease:'elastic.out(1,.3)'})}}
+function adm(){if(sessionStorage.pin)return admR();openM(`<h2>Masuk Admin</h2><label>Masukkan PIN</label><input id="pin" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="PIN" onkeydown="if(event.key=='Enter')pinGo()"><button class="btn gold" onclick="pinGo()">Masuk</button><p id="pe" style="color:#e58;font-size:13px;margin-top:8px"></p>`);setTimeout(()=>$('#pin')&&$('#pin').focus(),350)}
+async function pinGo(){sessionStorage.pin=$('#pin').value.trim();try{await api('admin/check',null,1);admR()}catch(e){sessionStorage.removeItem('pin');$('#pe').textContent=e.message;gsap.fromTo('#md',{x:-8},{x:0,duration:.5,ease:'elastic.out(1,.3)'})}}
 function admR(){const T={o:'Pesanan',b:'Pembayaran',p:'Produk',m:'Banner',r:'Ulasan, Ticker & Album',u:'Popup',s:'Pengaturan'};
  openM(`<h2>Dashboard Admin <button class="btn g" onclick="sessionStorage.removeItem('pin');closeM()">Keluar</button></h2><div class="tabs">${Object.entries(T).map(([k,v])=>`<button class="btn ${k==tab?'gold':'g'}" onclick="tab='${k}';admR()">${v}</button>`).join('')}</div><small id="svs" style="color:var(--gold)"></small><div id="ab">Memuat…</div>`,'adm');fill()}
 async function fill(){const el=$('#ab');try{el.innerHTML=await AB[tab]()}catch(e){if(/PIN/.test(e.message)){sessionStorage.removeItem('pin');adm()}else if(el)el.textContent=e.message}}
