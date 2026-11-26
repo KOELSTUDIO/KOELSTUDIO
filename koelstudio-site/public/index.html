@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KOELSTUDIO – Polaroid & Undangan Digital</title>
+<meta name="description" content="KOELSTUDIO: polaroid digital, polaroid custom, undangan digital dan undangan ulang tahun.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+<style>
+:root{--bg:#11120D;--mut:#565449;--sand:#D8CFBC;--gold:#CFAE6B}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--sand);font:16px/1.6 Georgia,'Times New Roman',serif}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-weight:400;line-height:1.15}
+.wrap{max-width:1100px;margin:auto;padding:0 20px}
+section{padding:80px 0}
+.split{font-size:clamp(28px,5vw,52px);margin-bottom:28px}
+.split .w{display:inline-block;overflow:hidden;vertical-align:top;margin-right:.25em}
+.split .w span{display:inline-block}
+.tag{color:var(--gold);font:600 12px/1 system-ui;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:12px}
+nav{position:sticky;top:0;z-index:20;background:#11120Dee;backdrop-filter:blur(8px);border-bottom:1px solid #565449aa}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+nav b{letter-spacing:.25em;color:var(--sand)}nav b i{color:var(--gold);font-style:normal}
+nav a{color:var(--sand);text-decoration:none;font:14px system-ui;margin-left:18px;opacity:.85}nav a:hover{color:var(--gold)}
+.btn,.pays button,.sz button,.cl button,.flt button{transition:transform .2s cubic-bezier(.22,1,.36,1),filter .2s,background .25s,border-color .25s}
+.btn{background:var(--sand);color:var(--bg);border:0;padding:10px 20px;border-radius:99px;cursor:pointer;font:600 14px system-ui}
+.btn.g{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.btn.gold{background:var(--gold);color:var(--bg)}
+.btn:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn:active,.pays button:active,.sz button:active,.cl button:active,.flt button:active{transform:scale(.95)}
+.slider{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:14px;border:1px solid var(--mut);margin:30px 0}
+.slide{position:absolute;inset:0;opacity:0;background:linear-gradient(135deg,#565449,#11120D) center/cover;display:flex;align-items:flex-end;padding:24px;font-size:clamp(14px,2vw,22px)}
+.slide span{position:relative;z-index:3}
+.dots{position:absolute;bottom:12px;right:16px;display:flex;gap:6px;z-index:5}
+.dots i{width:8px;height:8px;border-radius:9px;background:#fff6;cursor:pointer;transition:all .4s}.dots i.on{background:var(--gold);width:22px}
+.flt{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.flt button{background:transparent;border:1px solid var(--mut);border-radius:99px;padding:6px 16px;cursor:pointer;font:13px system-ui}
+.flt button.on{border-color:var(--gold);color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{background:#1b1c15;border:1px solid var(--mut);border-radius:14px;padding:16px;cursor:pointer;position:relative}
+.card .th{height:200px;display:grid;place-items:center;background:#0c0d09;border-radius:10px;margin-bottom:12px;overflow:hidden}
+.card .th img{width:100%;height:100%;object-fit:cover}
+.card h3{font-size:17px}.card small{color:var(--gold);font:12px system-ui}
+.pr{font:600 15px system-ui;margin-top:6px}.pr s{color:var(--mut);margin-right:6px;font-weight:400}
+.badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--bg);font:700 11px system-ui;padding:3px 9px;border-radius:99px;z-index:2}
+.pm{background:#fff;padding:6% 6% 22%;box-shadow:0 6px 18px #0008;height:150px}.pm div{width:100%;height:100%;background:linear-gradient(135deg,#8a8672,#565449)}
+.sw{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end}
+.sw figure{text-align:center;font:12px system-ui;color:var(--sand)}
+.alb{background:#16170f;border:1px solid var(--mut);border-radius:16px;padding:22px}
+#agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;perspective:900px}
+@media(max-width:700px){#agrid{grid-template-columns:repeat(2,1fr)}.mk{grid-template-columns:1fr!important}nav a{display:none}}
+.cell{height:250px;display:grid;place-items:center}
+.ap{position:relative;background:#fff;box-shadow:0 8px 22px #0009}
+.ap .ph{position:absolute;left:6%;right:6%;top:6%;bottom:22%;background:#8a8672 center/cover}
+.ap figcaption{position:absolute;left:6%;right:6%;bottom:2%;height:17%;color:#333;font-size:11px;line-height:1.25;text-align:center;overflow:hidden;display:grid;align-content:center}
+.ap.em{background:transparent;border:2px dashed var(--mut);box-shadow:none;display:grid;place-items:center;color:var(--mut);font:12px system-ui}
+.apg{display:flex;justify-content:center;align-items:center;gap:16px;margin:18px 0 6px;font:13px system-ui}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.steps div{border-left:2px solid var(--gold);padding:4px 16px;background:#1b1c15;border-radius:0 10px 10px 0}
+.steps b{color:var(--gold);font:600 13px system-ui}
+.tk{background:#1b1c15;border-block:1px solid var(--mut);overflow:hidden;white-space:nowrap;font:13px system-ui;padding:9px 0}
+.tk div{display:inline-block;animation:tk 40s linear infinite}.tk span{margin:0 30px}.tk span:before{content:"✦ ";color:var(--gold)}
+@keyframes tk{to{transform:translateX(-50%)}}
+.ov{position:fixed;inset:0;background:#000b;z-index:50;display:none;place-items:center;padding:16px}
+.ov.on{display:grid}
+.md{background:var(--bg);border:1px solid var(--mut);border-radius:16px;width:min(640px,100%);max-height:88vh;overflow:auto;padding:24px;position:relative}
+.md.adm{width:min(1000px,100%)}
+.x{position:absolute;top:10px;right:14px;background:none;border:0;font-size:26px;cursor:pointer;color:var(--sand)}
+input,select,textarea{background:#1b1c15;border:1px solid var(--mut);border-radius:8px;padding:9px 12px;width:100%;margin:4px 0 10px;font-size:14px}
+label{font:12px system-ui;color:var(--gold)}
+.pays{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:6px 0 12px}
+.pays button{background:#1b1c15;border:1px solid var(--mut);border-radius:10px;padding:10px;cursor:pointer;font:600 14px system-ui;text-align:left}
+.pays button.on{border-color:var(--gold);background:#2a2819}.pays button:hover{border-color:var(--gold)}.pays span{font-size:20px;margin-right:6px}
+.st{color:var(--gold);letter-spacing:2px;cursor:pointer}
+.rv{border-top:1px solid var(--mut);padding:8px 0;font-size:14px}
+.pop{position:fixed;bottom:20px;left:20px;max-width:300px;background:var(--bg);border:1px solid var(--gold);border-radius:14px;padding:16px;z-index:40;display:none}
+.pop img{width:100%;border-radius:8px;margin-bottom:8px}
+.sz{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px}
+.sz button.on,.cl button.on{border-color:var(--gold);background:#2a2819}
+.sz button,.cl button{background:#1b1c15;border:1px solid var(--mut);border-radius:8px;padding:6px;cursor:pointer;font:12px system-ui}
+.cl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.mk{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+canvas{max-width:100%;max-height:440px;background:#0c0d09;border-radius:8px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.row{border:1px solid var(--mut);border-radius:10px;padding:10px;margin-bottom:10px;font:13px system-ui}
+.row .btn{padding:5px 12px;font-size:12px;margin:2px}
+.fab{position:fixed;right:18px;bottom:18px;z-index:30;background:var(--gold);color:var(--bg);border:0;border-radius:99px;padding:12px 18px;font:700 13px system-ui;cursor:pointer;box-shadow:0 6px 20px #0008}
+footer{border-top:1px solid var(--mut);padding:30px 0;text-align:center;font:13px system-ui;color:var(--mut)}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>KOEL<i>STUDIO</i></b><div><a href="#produk">Produk</a><a href="#album">Album</a><a href="#maker">Polaroid Maker</a><a href="#panduan">Panduan</a><a href="#" onclick="hist();return false">Riwayat</a><a href="#" onclick="adm();return false" style="color:var(--gold)">Admin</a></div></div></nav>
+<div class="tk" id="tk" style="display:none"></div>
+
+<header class="wrap" style="padding-top:50px">
+  <span class="tag">Digital Polaroid Studio</span>
+  <h1 class="split" style="font-size:clamp(34px,7vw,72px)">Abadikan momen jadi polaroid cantik tanpa ribet</h1>
+  <div class="slider" id="sl"></div>
+</header>
+
+<section id="produk"><div class="wrap">
+  <span class="tag">Katalog</span><h2 class="split">Pilih produk digital favoritmu</h2>
+  <div class="flt" id="flt"></div>
+  <div class="grid" id="prods"></div>
+</div></section>
+
+<section style="background:#0c0d09"><div class="wrap">
+  <span class="tag">Preview</span><h2 class="split">Contoh warna dan ukuran polaroid</h2>
+  <p style="margin-bottom:10px">Warna default (untuk polaroid biasa):</p><div class="sw" id="swc"></div>
+  <p style="margin:30px 0 10px">Ukuran (cm):</p><div class="sw" id="sws"></div>
+</div></section>
+
+<section id="album"><div class="wrap">
+  <span class="tag">Album Momen</span><h2 class="split">Bagikan moment bahagiamu bersama kami di sini</h2>
+  <div class="alb"><div id="agrid"></div><div class="apg"><button class="btn g" onclick="albPg(-1)">‹ Sebelumnya</button><span id="apn"></span><button class="btn g" onclick="albPg(1)">Berikutnya ›</button></div></div>
+  <p style="margin-top:16px"><button class="btn gold" onclick="albumForm()">+ Bagikan momenmu</button> <small style="font:12px system-ui;color:var(--mut)">Khusus pembeli polaroid</small></p>
+</div></section>
+
+<section id="panduan" style="background:#0c0d09"><div class="wrap">
+  <span class="tag">Panduan</span><h2 class="split">Cara beli dan cara pakai polaroid</h2>
+  <div class="steps">
+    <div><b>1 · PILIH</b><br>Pilih polaroid (warna default) atau polaroid custom, klik produk lalu checkout.</div>
+    <div><b>2 · BAYAR</b><br>Pilih metode (QRIS/DANA/OVO/SeaBank), klik tombol WhatsApp, invoice terkirim otomatis.</div>
+    <div><b>3 · KIRIM BUKTI</b><br>Transfer lalu kirim bukti ke WA. Admin memverifikasi.</div>
+    <div><b>4 · KODE AKSES</b><br>Admin mengirim kode akses. Masukkan di Polaroid Maker. Kode hanya membuka produk yang kamu beli.</div>
+    <div><b>5 · UPLOAD FOTO</b><br>Tambahkan fotomu ke polaroid.</div>
+    <div><b>6 · SESUAIKAN & SIMPAN</b><br>Pilih Otomatis, Utuh, atau Manual agar foto tidak terpotong. Simpan HD atau cetak langsung.</div>
+  </div>
+</div></section>
+
+<section id="maker"><div class="wrap">
+  <span class="tag">Polaroid Maker</span><h2 class="split">Buat polaroid kamu sendiri</h2>
+  <div id="mkbox"></div>
+</div></section>
+
+<footer>© KOELSTUDIO · <a href="#" style="color:var(--gold)" onclick="adm();return false">Admin</a></footer>
+
+<div class="pop" id="pop"></div>
+<button class="fab" onclick="contact()">💬 Hubungi Admin</button>
+<div class="ov" id="ov"><div class="md" id="md" data-lenis-prevent></div></div>
+
+<script>
+/* ===== CORE ===== */
+const $=s=>document.querySelector(s),rp=n=>'Rp'+Number(n).toLocaleString('id-ID');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const OK=['berhasil','selesai'],ST=['pending','berhasil','selesai','gagal'];
+let S={cfg:{prods:[],pay:[],banners:['','','','',''],popup:{},wa:''},reviews:[],ticker:[],album:[]};
+const api=async(p,b,adm)=>{const r=await fetch('/api/'+p,{method:b?'POST':'GET',headers:{'content-type':'application/json',...(adm?{'x-pin':sessionStorage.pin||''}:{})},body:b?JSON.stringify(b):undefined});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.e||'Terjadi kesalahan');return d};
+const P=id=>S.cfg.prods.find(p=>p.id==id);
+const price=p=>Math.round(p.p*(1-(p.d||0)/100));
+const my=()=>{try{return JSON.parse(localStorage.my||'[]')}catch(e){return[]}};
+function pick(cb,max=1280){const f=document.createElement('input');f.type='file';f.accept='image/*';f.onchange=()=>{if(!f.files[0])return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',max>1280?.95:.82))};im.src=r.result};r.readAsDataURL(f.files[0])};f.click()}
+const up=cb=>pick(d=>api('admin/upload',{data:d},1).then(r=>cb(r.url)).catch(e=>alert(e.message)));
+const openM=(h,c='')=>{const ov=$('#ov'),md=$('#md'),was=ov.classList.contains('on');md.className='md '+c;md.innerHTML='<button class="x" onclick="closeM()">×</button>'+h;ov.classList.add('on');gsap.killTweensOf([ov,md]);
+ if(!was){gsap.fromTo(ov,{opacity:0},{opacity:1,duration:.3});gsap.fromTo(md,{y:40,scale:.94,opacity:0},{y:0,scale:1,opacity:1,duration:.5,ease:'power3.out'})}
+ else gsap.fromTo(md,{y:14,opacity:.3},{y:0,opacity:1,duration:.35,ease:'power2.out'})};
+const closeM=()=>{const ov=$('#ov');gsap.killTweensOf([ov,$('#md')]);gsap.to($('#md'),{y:30,scale:.96,opacity:0,duration:.25,ease:'power2.in'});gsap.to(ov,{opacity:0,duration:.25,onComplete:()=>ov.classList.remove('on')})};
+$('#ov').onclick=e=>{if(e.target.id=='ov')closeM()};
+function contact(inv){const o=inv&&(my().find(x=>x.inv==inv)||{inv});const t=inv?`Halo admin KOELSTUDIO, pesanan saya belum bisa diakses.\nInvoice: ${inv}`:'Halo admin KOELSTUDIO, saya butuh bantuan.';window.open(`https://wa.me/${S.cfg.wa}?text=${encodeURIComponent(t)}`,'_blank')}
+
+/* ===== DESAIN ===== */
+const COLORS=[['Classic White','#ffffff','#333'],['Cream Vintage','#F1E6CC','#5b4a2c'],['Pastel Rose','#F4C9CF','#7a3b46'],['Fresh Mint','#C8E8D6','#2f5d49'],['Midnight Gold','#14130f','#CFAE6B']];
+const TH=[['Sakura Dream',['#FBE3EA','#F7C6D4'],'#8a4a5e','hearts'],['Ocean Breeze',['#D7EEF7','#A9D6EA'],'#2c5d7a','waves'],['Golden Hour',['#FCE9C0','#F3C77E'],'#7a5217','rays'],['Midnight Stars',['#1c2340','#0d1226'],'#E8D9A8','stars'],['Retro Film',['#1a1a1a','#2b2b2b'],'#f1e6cc','film'],['Pastel Sprinkle',['#FFF4F7','#EAF6FF'],'#6b5b7b','confetti'],['Forest Green',['#DDEBD5','#B9D3AA'],'#2f5a35','leaf'],['Sunset Blush',['#FFD9C7','#F7A9B8'],'#7a3445','rays'],['Minimal Line',['#FFFFFF','#F4F1EA'],'#333','lines'],['Vintage Paper',['#EADFC6','#D9C9A5'],'#5b4a2c','dots'],['Neon Night',['#120a24','#1e0f3d'],'#7CFFF0','stars'],['Lavender Mist',['#EADFF7','#CDB9EB'],'#4b3a7a','dots'],['Coffee Cream',['#F1E1CE','#D3B392'],'#5a3a22','lines'],['Love Letter',['#FFE5E8','#FFC2CC'],'#a02848','hearts'],['Confetti Party',['#FFF7D6','#FFE08A'],'#7a4a00','confetti'],['Black & Gold',['#0e0e0b','#1c1b14'],'#CFAE6B','lines']];
+const LY=p=>{const W=p.w*100,H=p.h*100,m=40;return{W,H,m,bw:W-2*m,bh:H-m-(p.w<6?150:170)}};
+function frame(g,W,H,th){const[,[a,b],ink,pt]=th,gr=g.createLinearGradient(0,0,W,H);gr.addColorStop(0,a);gr.addColorStop(1,b);g.fillStyle=gr;g.fillRect(0,0,W,H);
+ g.save();g.globalAlpha=.3;g.fillStyle=g.strokeStyle=ink;const r=i=>{const x=Math.sin(i*127.1)*43758.5;return x-Math.floor(x)};
+ if(pt=='lines'){g.lineWidth=3;g.strokeRect(14,14,W-28,H-28);g.lineWidth=1;g.strokeRect(22,22,W-44,H-44)}
+ else if(pt=='dots'){for(let x=20;x<W;x+=34)for(let y=20;y<H;y+=34){g.beginPath();g.arc(x,y,3,0,7);g.fill()}}
+ else if(pt=='film'){for(let y=10;y<H;y+=28){g.fillRect(8,y,16,16);g.fillRect(W-24,y,16,16)}}
+ else if(pt=='rays'){g.lineWidth=2;for(let i=0;i<24;i++){const t=Math.PI*(1+i/23);g.beginPath();g.moveTo(W/2,H);g.lineTo(W/2+Math.cos(t)*H*1.3,H+Math.sin(t)*H*1.3);g.stroke()}}
+ else if(pt=='waves'){g.lineWidth=2;for(let y=30;y<H;y+=26){g.beginPath();for(let x=0;x<=W;x+=10)g.lineTo(x,y+Math.sin(x/18+y)*5);g.stroke()}}
+ else{const ch={hearts:'♥',stars:'✦',confetti:'■',leaf:'❀'}[pt];g.font='22px serif';for(let i=0;i<46;i++){g.save();g.translate(r(i)*W,r(i+99)*H);g.rotate(r(i+7)*6);g.fillText(ch,0,0);g.restore()}}
+ g.restore()}
+const TC={};
+function tplImg(p){const k=p.id+p.th;if(TC[k])return TC[k];const c=document.createElement('canvas'),L=LY(p),g=c.getContext('2d');c.width=L.W*.4;c.height=L.H*.4;g.scale(.4,.4);frame(g,L.W,L.H,TH[p.th]);const gr=g.createLinearGradient(0,0,L.W,L.H);gr.addColorStop(0,'#9a9580');gr.addColorStop(1,'#565449');g.fillStyle=gr;g.fillRect(L.m,L.m,L.bw,L.bh);return TC[k]=c.toDataURL()}
+const thumb=p=>p.img?`<img src="${esc(p.img)}">`:p.t=='tpl'?`<img src="${tplImg(p)}" style="object-fit:contain;padding:8px">`:p.t=='pol'?`<div class="pm" style="aspect-ratio:${p.w}/${p.h};height:160px"><div></div></div>`:'<span style="font-size:60px">✉️</span>';
+
+/* ===== KATALOG ===== */
+let flt='all';
+const FL={all:'Semua',pol:'Polaroid',tpl:'Polaroid Custom',inv:'Undangan'};
+function renderProds(){$('#flt').innerHTML=Object.entries(FL).map(([k,v])=>`<button class="${k==flt?'on':''}" onclick="flt='${k}';renderProds()">${v}</button>`).join('');
+ $('#prods').innerHTML=S.cfg.prods.map((p,i)=>flt=='all'||p.t==flt?`<div class="card" onclick="detail(${i})">${p.d?`<span class="badge">-${p.d}%</span>`:''}<div class="th">${thumb(p)}</div><small>${p.t=='inv'?'UNDANGAN DIGITAL':(p.t=='tpl'?'CUSTOM · ':'POLAROID · ')+p.w+'×'+p.h+' cm'}</small><h3>${esc(p.n)}</h3><div class="pr">${p.d?`<s>${rp(p.p)}</s>`:''}${rp(price(p))}</div></div>`:'').join('');
+ document.querySelectorAll('.card').forEach(c=>{if(window.Motion){Motion.animate(c,{opacity:0,y:40},{duration:0});Motion.inView(c,()=>{Motion.animate(c,{opacity:1,y:0},{duration:.7,ease:'easeOut'})});
+  const A=(y,s,d)=>Motion.animate(c,{y,scale:s},{duration:d,ease:'easeOut'});c.onmouseenter=()=>A(-8,1.02,.3);c.onmouseleave=()=>A(0,1,.3);c.onpointerdown=()=>A(-2,.97,.15);c.onpointerup=()=>A(-8,1.02,.25)}})}
+function renderMisc(){
+ $('#swc').innerHTML=COLORS.map(c=>`<figure><div class="pm" style="background:${c[1]};width:90px;height:110px;padding:6px 6px 24px;box-sizing:border-box"><div style="background:#8a8672"></div></div>${c[0]}</figure>`).join('');
+ $('#sws').innerHTML=S.cfg.prods.filter(p=>p.t=='pol').map(p=>`<figure><div class="pm" style="width:${p.w*13}px;height:${p.h*13}px;padding:5px 5px 20px;box-sizing:border-box"><div style="background:#8a8672"></div></div>${p.n.replace('Polaroid ','')}<br>${p.w}×${p.h} · ${rp(price(p))}</figure>`).join('')}
+let tkS='';
+function renderTicker(){const t=S.ticker.map(o=>`<span>${esc(o.n)} baru saja membeli ${esc(o.item)}</span>`).join(''),el=$('#tk');if(t==tkS)return;tkS=t;if(!t){el.style.display='none';return}el.style.display='block';el.innerHTML=`<div>${t+t+t+t}</div>`}
+
+/* ===== SLIDER ===== */
+let si=0,sT;
+function renderSl(){const el=$('#sl');el.innerHTML=S.cfg.banners.map((b,i)=>`<div class="slide" style="${b?`background-image:url(${esc(b)})`:''}"><span>${b?'':'Banner '+(i+1)+' · 16:9'}</span></div>`).join('')+'<div class="dots">'+S.cfg.banners.map((_,i)=>`<i onclick="goSl(${i})"></i>`).join('')+'</div>';
+ const s=el.querySelectorAll('.slide');gsap.set(s,{opacity:0,zIndex:0,scale:1,xPercent:0});gsap.set(s[si],{opacity:1});dots()}
+function dots(){document.querySelectorAll('#sl .dots i').forEach((d,i)=>d.classList.toggle('on',i==si))}
+function goSl(n){if(n==si)return;const s=document.querySelectorAll('#sl .slide'),o=s[si],i=s[n];si=n;gsap.killTweensOf(s);gsap.set(s,{zIndex:0});gsap.set(i,{zIndex:2,opacity:0,scale:1.12,xPercent:6});gsap.set(o,{zIndex:1});
+ gsap.to(o,{opacity:0,scale:.96,xPercent:-6,duration:1.1,ease:'power2.inOut'});gsap.to(i,{opacity:1,scale:1,xPercent:0,duration:1.2,ease:'power3.out'});
+ const t=i.querySelector('span');if(t)gsap.from(t,{y:20,opacity:0,duration:.8,delay:.5});dots();clearInterval(sT);sT=setInterval(()=>goSl((si+1)%5),5000)}
+sT=setInterval(()=>goSl((si+1)%5),5000);
+
+/* ===== ALBUM ===== */
+let ap=0;
+function renderAlbum(dir=0){const n=S.album.length,pg=Math.max(1,Math.ceil(n/6));ap=Math.min(ap,pg-1);
+ $('#agrid').innerHTML=Array.from({length:6},(_,k)=>{const a=S.album[ap*6+k],rot=(k%2?1:-1)*1.5;
+  if(!a){const w=8.8,h=10.7;return`<div class="cell"><figure class="ap em" style="width:min(100%,${Math.round(230*w/h)}px);aspect-ratio:${w}/${h}">${n?'':'Jadilah yang pertama'}</figure></div>`}
+  return`<div class="cell"><figure class="ap" style="width:min(100%,${Math.round(230*a.w/a.h)}px);aspect-ratio:${a.w}/${a.h};transform:rotate(${rot}deg)"><div class="ph" style="background-image:url(${esc(a.img)})"></div><figcaption><b>${esc(a.name)}</b>${esc(a.cap)}</figcaption></figure></div>`}).join('');
+ $('#apn').textContent=`Halaman ${ap+1} / ${pg}`;
+ if(dir)gsap.fromTo('.cell',{opacity:0,y:30,rotateY:dir*25},{opacity:1,y:0,rotateY:0,stagger:.07,duration:.6,ease:'power3.out'})}
+function albPg(d){const pg=Math.max(1,Math.ceil(S.album.length/6));ap=(ap+d+pg)%pg;renderAlbum(d)}
+let ai=null;
+function albumForm(){ai=null;openM(`<h2>Bagikan Momenmu</h2><p style="font-size:13px;margin:6px 0 12px">Khusus pembeli polaroid. Fotomu tampil di album dengan ukuran polaroid yang kamu beli.</p><label>Kode akses</label><input id="ak" value="${esc(MK.code)}"><label>Nama</label><input id="an" maxlength="40"><label>Keterangan</label><input id="acp" maxlength="80"><button class="btn g" onclick="pick(d=>{ai=d;$('#apx').textContent='✓ Foto dipilih'})">Pilih foto</button> <span id="apx" style="font-size:13px"></span><br><br><button class="btn gold" onclick="sendAl()">Kirim ke Album</button>`)}
+async function sendAl(){if(!ai)return alert('Pilih foto dulu.');try{await api('album',{code:$('#ak').value.trim().toUpperCase(),name:$('#an').value,cap:$('#acp').value,img:ai});await refresh();closeM();alert('Terima kasih! Momenmu sudah masuk album.')}catch(e){alert(e.message)}}
+
+/* ===== DETAIL / ULASAN / CHECKOUT ===== */
+const stars=n=>'★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n));
+function detail(i){const p=S.cfg.prods[i],rv=S.reviews.filter(r=>r.pid==p.id),avg=rv.length?rv.reduce((a,r)=>a+r.s,0)/rv.length:0;
+ openM(`<div class="th" style="height:220px;display:grid;place-items:center;background:#0c0d09;border-radius:10px;overflow:hidden">${thumb(p)}</div>
+ <h2 style="margin:12px 0 4px">${esc(p.n)}</h2><div class="st">${stars(avg)} <small style="color:var(--sand)">${rv.length?avg.toFixed(1)+' ('+rv.length+')':'Belum ada ulasan'}</small></div>
+ <p style="margin:10px 0">${esc(p.desc)}</p><div class="pr" style="font-size:20px">${p.d?`<s>${rp(p.p)}</s> <span class="badge" style="position:static">-${p.d}%</span> `:''}${rp(price(p))}</div>
+ <p style="margin:10px 0"><button class="btn gold" onclick="checkout(${i})">Bayar & Beli Akses</button> <button class="btn g" onclick="reviewForm('${p.id}')">Tulis Ulasan</button></p>
+ <h3 style="margin-top:16px;font-size:16px">Ulasan pembeli</h3>${rv.map(r=>`<div class="rv"><b>${esc(r.name)}</b> <span class="st">${stars(r.s)}</span><br>${esc(r.txt)}</div>`).join('')||'<div class="rv">Belum ada.</div>'}`)}
+let rs=5;
+function reviewForm(pid,inv){const p=P(pid),pre=inv||(my().filter(x=>x.pid==pid).pop()||{}).inv||'';
+ openM(`<h3>Ulasan ${esc(p.n)}</h3><p style="font-size:13px">Wajib memasukkan kode invoice pembelian.</p><label>Rating</label><div class="st" style="font-size:28px" id="rst"></div><label>Kode Invoice</label><input id="ri" placeholder="KS-XXXXXX" value="${esc(pre)}"><label>Nama</label><input id="rn" maxlength="40"><label>Ulasan</label><textarea id="rt" rows="3" maxlength="300"></textarea><button class="btn gold" onclick="sendRv('${pid}')">Kirim</button>`);rs=5;drawSt()}
+function drawSt(){$('#rst').innerHTML=[1,2,3,4,5].map(n=>`<span onclick="rs=${n};drawSt()">${n<=rs?'★':'☆'}</span>`).join('')}
+async function sendRv(pid){try{await api('review',{inv:$('#ri').value.trim(),pid,s:rs,name:$('#rn').value,txt:$('#rt').value});await refresh();alert('Terima kasih, ulasan terkirim!');detail(S.cfg.prods.findIndex(p=>p.id==pid))}catch(e){alert(e.message)}}
+let pm=0;
+const payIc=m=>m.ic?`<img src="${esc(m.ic)}" style="width:22px;height:22px;object-fit:contain;vertical-align:middle;margin-right:8px">`:`<span>${esc(m.i)}</span>`;
+function checkout(i){const p=S.cfg.prods[i];pm=0;
+ openM(`<h2>Checkout</h2><div class="row"><b>${esc(p.n)}</b><br>${p.d?`<s>${rp(p.p)}</s> `:''}<b>${rp(price(p))}</b></div>
+ <label>Nama</label><input id="cn" maxlength="60"><label>No. WhatsApp</label><input id="cw" placeholder="08xxxxxxxxxx" inputmode="tel">
+ <label>Metode pembayaran</label><div class="pays">${S.cfg.pay.map((m,k)=>`<button id="pm${k}" onclick="selPay(${k})">${payIc(m)}${esc(m.n)}</button>`).join('')}</div>
+ <div class="row" id="pinfo"></div><button class="btn gold" id="ob" onclick="order(${i})">Buat Invoice & Kirim via WhatsApp</button>
+ <p style="font-size:12px;margin-top:10px;color:var(--mut)">Setelah transfer, kirim bukti ke WhatsApp admin.</p>`);selPay(0)}
+function selPay(k){pm=k;S.cfg.pay.forEach((_,j)=>$('#pm'+j)?.classList.toggle('on',j==k));const m=S.cfg.pay[k];if(m)$('#pinfo').innerHTML=`<b>${esc(m.n)}</b><br>${esc(m.d)}${m.img?`<br><img src="${esc(m.img)}" style="max-width:220px;margin-top:8px;border-radius:8px">`:''}`}
+async function order(i){const p=S.cfg.prods[i],name=$('#cn').value.trim(),wa=$('#cw').value.trim();if(!name||!wa)return alert('Lengkapi nama dan WhatsApp');
+ $('#ob').disabled=true;try{const o=await api('order',{name,wa,pid:p.id,pm:S.cfg.pay[pm].n}),l=my();l.push({inv:o.inv,pid:p.id});localStorage.my=JSON.stringify(l);
+  const t=`*INVOICE KOELSTUDIO*\nInvoice: ${o.inv}\nNama: ${name}\nProduk: ${o.item}\nTotal: ${rp(o.total)}\nMetode: ${o.pm}\nTanggal: ${o.date}\n\nSaya sudah/akan transfer. Bukti transfer saya kirim di chat ini.`,link=`https://wa.me/${S.cfg.wa}?text=${encodeURIComponent(t)}`;
+  window.open(link,'_blank');
+  openM(`<h2>Invoice dibuat</h2><p>Kode invoice: <b style="color:var(--gold);font-size:22px">${o.inv}</b></p><p style="margin:8px 0">Total ${rp(o.total)} via ${esc(o.pm)}. Kirim invoice dan bukti transfer ke WhatsApp admin. Pesanan tercatat otomatis di menu Riwayat.</p><a class="btn gold" style="display:inline-block;text-decoration:none" href="${link}" target="_blank">Kirim Invoice via WhatsApp</a> <button class="btn g" onclick="contact('${o.inv}')">Hubungi Admin</button>`)}catch(e){alert(e.message);$('#ob').disabled=false}}
+
+/* ===== RIWAYAT (otomatis dari perangkat) ===== */
+function hist(){openM(`<h2>Riwayat Pembelian</h2><div id="hr">Memuat…</div><div class="row" style="margin-top:14px"><label>Pesanan dari perangkat lain? Tambahkan dengan kode invoice</label><input id="hq" placeholder="KS-XXXXXX"><button class="btn g" onclick="addInv()">Tambahkan</button></div>`);loadHist()}
+async function loadHist(){const m=my(),el=$('#hr');if(!el)return;if(!m.length){el.innerHTML='Belum ada pembelian di perangkat ini.';return}
+ const c={pending:'⏳ Pending',berhasil:'✅ Berhasil',selesai:'✅ Selesai',gagal:'❌ Gagal'};
+ try{const l=(await api('mine',{invs:m.map(x=>x.inv)})).orders;el.innerHTML=l.map(o=>`<div class="row"><b>${esc(o.item)}</b> · ${rp(o.total)}<br>${o.inv} · ${esc(o.date)} · ${esc(o.pm)}<br>Status: <b>${c[o.st]||o.st}</b>${o.hc?'<br><small style="color:var(--gold)">Kode akses sudah dikirim admin via WA.</small>':''}<br>${OK.includes(o.st)?`<button class="btn g" onclick="reviewForm('${o.pid}','${o.inv}')">Beri Ulasan</button>`:''}${o.st!='selesai'||(P(o.pid)?.t!='inv'&&!o.hc)?`<button class="btn g" onclick="contact('${o.inv}')">Hubungi Admin</button>`:''}</div>`).join('')||'Tidak ada data.'}catch(e){el.textContent=e.message}}
+async function addInv(){const inv=$('#hq').value.trim().toUpperCase();try{const l=(await api('mine',{invs:[inv]})).orders;if(!l[0])return alert('Invoice tidak ditemukan');const m=my();if(!m.some(x=>x.inv==inv)){m.push({inv,pid:l[0].pid});localStorage.my=JSON.stringify(m)}loadHist()}catch(e){alert(e.message)}}
+
+/* ===== POLAROID MAKER ===== */
+let mk={img:null,col:0,fit:'auto',z:1,x:0,y:0,cap:''},MK={code:localStorage.ac||'',pid:localStorage.acp||''};
+const FR={};function fimg(u){if(!u)return null;if(!FR[u]){const i=new Image();i.onload=()=>draw();i.src=u;FR[u]=i}return FR[u].complete&&FR[u].naturalWidth?FR[u]:null}
+function mkRender(){const p=P(MK.pid);
+ if(!p){$('#mkbox').innerHTML=`<div class="row" style="max-width:440px"><span class="tag">Akses terkunci</span><label>Kode akses</label><input id="ac" placeholder="AK-XXXXXX" onkeydown="if(event.key=='Enter')unlock()"><button class="btn gold" onclick="unlock()">Buka Akses</button><p style="margin:10px 0 6px">Belum punya kode? <a href="#produk" style="color:var(--gold)">Bayar & beli akses</a></p><button class="btn g" onclick="contact()">Hubungi Admin</button></div>`;return}
+ const tp=p.t=='tpl';
+ $('#mkbox').innerHTML=`<div class="row"><span style="color:var(--gold)">● Akses aktif</span> · ${esc(p.n)} (${p.w}×${p.h} cm) · ukuran & desain otomatis sesuai pembelian <br><button class="btn g" onclick="contact()">Hubungi Admin</button><button class="btn g" onclick="MK={code:'',pid:''};localStorage.removeItem('ac');localStorage.removeItem('acp');mkRender()">Keluar</button></div>
+ <div class="mk"><div style="text-align:center"><canvas id="cv"></canvas></div><div>
+ ${tp?`<label>Desain</label><p style="margin-bottom:10px">${esc(TH[p.th]?.[0]||p.n)} <small style="color:var(--mut)">(warna default tidak tersedia untuk polaroid custom)</small></p>`:`<label>Warna default</label><div class="cl">${COLORS.map((c,i)=>`<button class="${i==mk.col?'on':''}" onclick="mk.col=${i};mkRender()">${c[0]}</button>`).join('')}</div>`}
+ <button class="btn g" onclick="pick(d=>ld(d),4096)">+ Tambah foto</button>
+ <label style="display:block;margin-top:10px">Penyesuaian foto</label><div class="sz"><button class="${mk.fit=='auto'?'on':''}" onclick="mk.fit='auto';mkRender()">Otomatis</button><button class="${mk.fit=='contain'?'on':''}" onclick="mk.fit='contain';mkRender()">Utuh (tanpa potong)</button><button class="${mk.fit=='manual'?'on':''}" onclick="mk.fit='manual';mkRender()">Sesuaikan sendiri</button></div>
+ ${mk.fit=='manual'?`<label>Zoom</label><input type="range" min=".3" max="3" step=".01" value="${mk.z}" oninput="mk.z=+this.value;draw()"><label>Geser X</label><input type="range" min="-1" max="1" step=".01" value="${mk.x}" oninput="mk.x=+this.value;draw()"><label>Geser Y</label><input type="range" min="-1" max="1" step=".01" value="${mk.y}" oninput="mk.y=+this.value;draw()">`:''}
+ <label>Teks bawah (opsional)</label><input maxlength="40" value="${esc(mk.cap)}" oninput="mk.cap=this.value;draw()">
+ <label>Kualitas simpan</label><select id="dpi"><option value="600">HD 600 DPI</option><option value="300">Standar cetak 300 DPI</option></select>
+ <button class="btn gold" onclick="saveImg()">Simpan ke perangkat (HD)</button> <button class="btn g" onclick="printImg()">Cetak langsung</button> <button class="btn g" onclick="albumForm()">Bagikan ke Album</button></div></div>`;draw()}
+function ld(d){const i=new Image();i.onload=()=>{mk.img=i;draw()};i.src=d}
+async function unlock(){const c=$('#ac').value.trim().toUpperCase();try{const r=await api('verify',{code:c});MK={code:c,pid:r.pid};localStorage.ac=c;localStorage.acp=r.pid;mkRender()}catch(e){alert(e.message)}}
+function render(cv,k){const p=P(MK.pid),L=LY(p),{W,H,m:bx,bw,bh}=L,by=bx,g=cv.getContext('2d');cv.width=Math.round(W*k);cv.height=Math.round(H*k);g.scale(cv.width/W,cv.height/H);g.imageSmoothingQuality='high';
+ let ink;if(p.t=='tpl'){frame(g,W,H,TH[p.th]);ink=TH[p.th][2]}else{const c=COLORS[mk.col];g.fillStyle=c[1];g.fillRect(0,0,W,H);ink=c[2]}
+ g.fillStyle=(p.t=='tpl'?TH[p.th][1][1]:COLORS[mk.col][1])=='#14130f'?'#0a0a07':'#00000018';g.fillRect(bx,by,bw,bh);
+ if(mk.img){const i=mk.img,ct=Math.min(bw/i.width,bh/i.height),cr=Math.max(bw/i.width,bh/i.height);let s=ct;
+  if(mk.fit=='auto')s=1-ct/cr<.12?cr:ct;if(mk.fit=='manual')s=ct*mk.z;
+  const w=i.width*s,h=i.height*s,ox=mk.fit=='manual'?mk.x*bw/2:0,oy=mk.fit=='manual'?mk.y*bh/2:0;
+  g.save();g.beginPath();g.rect(bx,by,bw,bh);g.clip();g.drawImage(i,bx+(bw-w)/2+ox,by+(bh-h)/2+oy,w,h);g.restore()}
+ const f=p.t=='tpl'&&fimg(p.frame);if(f)g.drawImage(f,0,0,W,H);
+ g.fillStyle=ink;g.font='italic 26px Georgia';g.textAlign='center';g.fillText(mk.cap,W/2,H-45)}
+function draw(){const cv=$('#cv');if(cv&&P(MK.pid))render(cv,1)}
+const CT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc=u=>{let c=-1;for(const b of u)c=CT[(c^b)&255]^(c>>>8);return(~c)>>>0};
+function setDpi(ab,dpi){const a=new Uint8Array(ab),m=Math.round(dpi/.0254),ch=new Uint8Array(21),d=new DataView(ch.buffer);d.setUint32(0,9);ch.set([112,72,89,115],4);d.setUint32(8,m);d.setUint32(12,m);ch[16]=1;d.setUint32(17,crc(ch.subarray(4,17)));const o=new Uint8Array(a.length+21);o.set(a.subarray(0,33));o.set(ch,33);o.set(a.subarray(33),54);return new Blob([o],{type:'image/png'})}
+function exp(cb){if(!mk.img)return alert('Tambahkan foto dulu.');const p=P(MK.pid),dpi=+$('#dpi').value,c=document.createElement('canvas');render(c,(p.w/2.54*dpi)/(p.w*100));c.toBlob(b=>b.arrayBuffer().then(ab=>cb(setDpi(ab,dpi),p,dpi)),'image/png')}
+function saveImg(){exp((b,p,dpi)=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`KOELSTUDIO-${p.id}-${p.w}x${p.h}cm-${dpi}dpi.png`;a.click()})}
+function printImg(){exp((b,p)=>{const r=new FileReader();r.onload=()=>{const f=document.createElement('iframe');f.style.cssText='position:fixed;width:0;height:0;border:0';document.body.appendChild(f);f.onload=()=>setTimeout(()=>{f.contentWindow.focus();f.contentWindow.print()},400);f.srcdoc=`<style>@page{size:${p.w}cm ${p.h}cm;margin:0}html,body{margin:0}img{width:${p.w}cm;height:${p.h}cm;display:block}</style><img src="${r.result}">`};r.readAsDataURL(b)})}
+
+/* ===== ADMIN (PIN diverifikasi server) ===== */
+let tab='o',A={o:[]},sT2;
+const sv=()=>{clearTimeout(sT2);const s=$('#svs');if(s)s.textContent='Menyimpan…';sT2=setTimeout(async()=>{try{await api('admin/cfg',{cfg:S.cfg},1);const s=$('#svs');if(s)s.textContent='✓ Tersimpan'}catch(e){alert(e.message)}},700)};
+const rall=()=>{renderProds();renderMisc();renderSl()};
+function adm(){if(sessionStorage.pin)return admR();openM(`<h2>Masuk Admin</h2><label>Masukkan PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" onkeydown="if(event.key=='Enter')pinGo()"><button class="btn gold" onclick="pinGo()">Masuk</button><p id="pe" style="color:#e58;font-size:13px;margin-top:8px"></p>`);setTimeout(()=>$('#pin')&&$('#pin').focus(),350)}
+async function pinGo(){sessionStorage.pin=$('#pin').value;try{await api('admin/check',null,1);admR()}catch(e){sessionStorage.removeItem('pin');$('#pe').textContent=e.message;gsap.fromTo('#md',{x:-8},{x:0,duration:.5,ease:'elastic.out(1,.3)'})}}
+function admR(){const T={o:'Pesanan',b:'Pembayaran',p:'Produk',m:'Banner',r:'Ulasan, Ticker & Album',u:'Popup',s:'Pengaturan'};
+ openM(`<h2>Dashboard Admin <button class="btn g" onclick="sessionStorage.removeItem('pin');closeM()">Keluar</button></h2><div class="tabs">${Object.entries(T).map(([k,v])=>`<button class="btn ${k==tab?'gold':'g'}" onclick="tab='${k}';admR()">${v}</button>`).join('')}</div><small id="svs" style="color:var(--gold)"></small><div id="ab">Memuat…</div>`,'adm');fill()}
+async function fill(){const el=$('#ab');try{el.innerHTML=await AB[tab]()}catch(e){if(/PIN/.test(e.message)){sessionStorage.removeItem('pin');adm()}else if(el)el.textContent=e.message}}
+async function act(inv,b){try{await api('admin/order',{inv,...b},1);await fill();refresh()}catch(e){alert(e.message);fill()}}
+const mkCode=inv=>act(inv,{code:1});
+function notif(inv){const o=A.o.find(x=>x.inv==inv),m={pending:'sedang menunggu verifikasi',berhasil:'BERHASIL',selesai:'SELESAI',gagal:'GAGAL, silakan hubungi admin'};
+ let t=`Halo ${o.name}, pembayaran invoice ${o.inv} (${o.item}) ${m[o.st]}.`;if(o.code)t+=`\nKode akses polaroid kamu: ${o.code}`;window.open(`https://wa.me/${o.wa.replace(/^0/,'62')}?text=${encodeURIComponent(t)}`,'_blank')}
+const upBtn=(l,path,after='')=>`<button class="btn g" onclick="up(u=>{${path}=u;sv();rall();${after}admR()})">${l}</button>`;
+const AB={
+async o(){A.o=(await api('admin/orders',null,1)).orders;return A.o.map(o=>`<div class="row"><b>${o.inv}</b> · ${esc(o.name)} · ${esc(o.wa)}<br>${esc(o.item)} · ${rp(o.total)} · ${esc(o.pm)} · ${esc(o.date)}<br>Status: <select style="width:auto;padding:4px" onchange="act('${o.inv}',{st:this.value})">${ST.map(s=>`<option ${s==o.st?'selected':''}>${s}</option>`).join('')}</select> <button class="btn g" onclick="notif('${o.inv}')">Notifikasi WA</button>${P(o.pid)?.t!='inv'?`<button class="btn gold" onclick="mkCode('${o.inv}')">Buat kode akses</button> ${o.code?`<b style="color:var(--gold)">${o.code}</b>`:''}`:''}<button class="btn g" onclick="if(confirm('Hapus pesanan?'))act('${o.inv}',{del:1})">Hapus</button></div>`).join('')||'Belum ada pesanan.'},
+async b(){return S.cfg.pay.map((m,i)=>`<div class="row"><label>Nama</label><input value="${esc(m.n)}" onchange="S.cfg.pay[${i}].n=this.value;sv()"><label>Ikon emoji</label><input value="${esc(m.i)}" onchange="S.cfg.pay[${i}].i=this.value;sv()"><label>Rekening / keterangan</label><input value="${esc(m.d)}" onchange="S.cfg.pay[${i}].d=this.value;sv()">${upBtn('Ganti logo ikon',`S.cfg.pay[${i}].ic`)}${upBtn('Ganti foto QR',`S.cfg.pay[${i}].img`)}<button class="btn g" onclick="S.cfg.pay.splice(${i},1);sv();admR()">Hapus</button></div>`).join('')+`<button class="btn gold" onclick="S.cfg.pay.push({n:'Baru',i:'💳',d:'',ic:'',img:''});sv();admR()">+ Metode</button>`},
+async p(){return S.cfg.prods.map((p,i)=>`<div class="row"><b>${esc(p.n)}</b> <small>(${p.t})</small><br><label>Nama</label><input value="${esc(p.n)}" onchange="S.cfg.prods[${i}].n=this.value;sv();rall()"><label>Harga</label><input type="number" value="${p.p}" onchange="S.cfg.prods[${i}].p=+this.value;sv();rall()"><label>Diskon %</label><input type="number" min="0" max="100" value="${p.d||0}" onchange="S.cfg.prods[${i}].d=+this.value;sv();rall()"><label>Keterangan</label><textarea rows="2" onchange="S.cfg.prods[${i}].desc=this.value;sv()">${esc(p.desc)}</textarea>${upBtn('Ganti foto produk',`S.cfg.prods[${i}].img`)}${p.t=='tpl'?upBtn('Upload frame PNG (opsional)',`S.cfg.prods[${i}].frame`):''}</div>`).join('')},
+async m(){return S.cfg.banners.map((b,i)=>upBtn(`Banner ${i+1} ${b?'✓':''}`,`S.cfg.banners[${i}]`)).join(' ')+'<p style="margin-top:10px;font-size:13px">Gunakan gambar rasio 16:9 (mis. 1280×720).</p>'},
+async r(){const[rv,od]=await Promise.all([api('admin/reviews',null,1),api('admin/orders',null,1)]);A.o=od.orders;
+ return'<h3>Ulasan</h3>'+(rv.reviews.map(r=>`<div class="row">${esc(r.name)} ${stars(r.s)} (${r.inv}) ${esc(r.txt)} <button class="btn g" onclick="api('admin/review/del',{inv:'${r.inv}'},1).then(()=>{refresh();fill()})">Hapus</button></div>`).join('')||'-')
+ +'<h3 style="margin-top:12px">Ticker notifikasi pembeli</h3>'+(A.o.filter(o=>OK.includes(o.st)).map(o=>`<div class="row">${esc(o.name)} – ${esc(o.item)} ${o.hide?'(disembunyikan)':''} <button class="btn g" onclick="act('${o.inv}',{hide:${o.hide?0:1}})">${o.hide?'Tampilkan':'Hapus dari ticker'}</button></div>`).join('')||'-')
+ +'<h3 style="margin-top:12px">Album pembeli</h3>'+(S.album.map(a=>`<div class="row">${esc(a.name)} – ${esc(a.cap)} <img src="${esc(a.img)}" style="height:40px;vertical-align:middle"> <button class="btn g" onclick="api('admin/album/del',{id:'${a.id}'},1).then(()=>refresh().then(fill))">Hapus</button></div>`).join('')||'-')},
+async u(){const p=S.cfg.popup;return`<label><input type="checkbox" style="width:auto" ${p.on?'checked':''} onchange="S.cfg.popup.on=this.checked?1:0;sv()"> Aktifkan popup</label><label>Judul</label><input value="${esc(p.title)}" onchange="S.cfg.popup.title=this.value;sv()"><label>Teks</label><textarea rows="3" onchange="S.cfg.popup.text=this.value;sv()">${esc(p.text)}</textarea>${upBtn('Foto popup','S.cfg.popup.img')} <button class="btn g" onclick="S.cfg.popup.img='';sv();admR()">Hapus foto</button> <button class="btn gold" onclick="showPop(1)">Preview</button>`},
+async s(){return`<label>No. WhatsApp admin (format 628xxx)</label><input value="${esc(S.cfg.wa)}" onchange="S.cfg.wa=this.value.replace(/\\D/g,'');sv()"><p style="font-size:13px;margin-top:10px">PIN admin diubah lewat Environment Variable <b>ADMIN_PIN</b> di Cloudflare Pages.</p>`}};
+
+/* ===== POPUP ===== */
+function showPop(f){const p=S.cfg.popup;if(!f&&(!p.on||sessionStorage.pp))return;sessionStorage.pp=1;const e=$('#pop');e.innerHTML=`<button class="x" style="font-size:20px;top:4px;right:8px" onclick="this.parentNode.style.display='none'">×</button>${p.img?`<img src="${esc(p.img)}">`:''}<b style="color:var(--gold)">${esc(p.title)}</b><p style="font-size:14px">${esc(p.text)}</p>`;e.style.display='block';gsap.from(e,{y:40,opacity:0,duration:.6})}
+
+/* ===== DATA ===== */
+async function refresh(first){const d=await api('state');if(first)S.cfg=d.cfg;S.reviews=d.reviews;S.ticker=d.ticker;
+ const na=JSON.stringify(d.album)!=JSON.stringify(S.album);S.album=d.album;renderTicker();if(na||first)renderAlbum()}
+
+/* ===== FX: GSAP (hanya saat scroll ke bawah) + Lenis ===== */
+gsap.registerPlugin(ScrollTrigger);
+const lenis=new Lenis({lerp:.09});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
+document.querySelectorAll('.split').forEach(el=>{el.innerHTML=el.textContent.trim().split(/\s+/).map(w=>`<span class="w"><span>${w}</span></span>`).join('');
+ const w=el.querySelectorAll('.w span'),play=()=>gsap.to(w,{yPercent:0,opacity:1,stagger:.1,duration:.8,ease:'power3.out',overwrite:true});
+ gsap.set(w,{yPercent:110,opacity:0});ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:play,onLeave:play})});
+(async()=>{try{await refresh(1)}catch(e){$('#prods').innerHTML=`<p style="color:#e58">Gagal memuat data server: ${esc(e.message)}. Pastikan D1 (DB) dan ADMIN_PIN sudah dipasang di Cloudflare.</p>`;return}
+ renderSl();renderProds();renderMisc();renderAlbum();ScrollTrigger.refresh();
+ if(MK.code)api('verify',{code:MK.code}).then(r=>{MK.pid=r.pid;localStorage.acp=r.pid;mkRender()}).catch(()=>{MK={code:'',pid:''};localStorage.removeItem('ac');localStorage.removeItem('acp');mkRender()});else mkRender();
+ setTimeout(()=>showPop(0),1200);setInterval(()=>refresh().catch(()=>{}),60000)})();
+</script>
+</body>
+</html>

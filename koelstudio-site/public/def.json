@@ -1,0 +1,318 @@
+{
+ "wa": "6281234567890",
+ "banners": [
+  "",
+  "",
+  "",
+  "",
+  ""
+ ],
+ "pay": [
+  {
+   "n": "QRIS",
+   "i": "▦",
+   "d": "Scan QRIS KOELSTUDIO",
+   "ic": "",
+   "img": ""
+  },
+  {
+   "n": "DANA",
+   "i": "💙",
+   "d": "0812-0000-0000 a.n KOELSTUDIO",
+   "ic": "",
+   "img": ""
+  },
+  {
+   "n": "OVO",
+   "i": "💜",
+   "d": "0812-0000-0000 a.n KOELSTUDIO",
+   "ic": "",
+   "img": ""
+  },
+  {
+   "n": "SeaBank",
+   "i": "🟠",
+   "d": "9012-0000-0000 a.n KOELSTUDIO",
+   "ic": "",
+   "img": ""
+  }
+ ],
+ "prods": [
+  {
+   "id": "mini",
+   "t": "pol",
+   "n": "Polaroid Mini",
+   "w": 5.4,
+   "h": 8.6,
+   "p": 10000,
+   "d": 0,
+   "desc": "Ukuran 5.4 x 8.6 cm. Pilih 5 warna default dan atur foto sesuai keinginan.",
+   "img": ""
+  },
+  {
+   "id": "square",
+   "t": "pol",
+   "n": "Polaroid Square",
+   "w": 7.2,
+   "h": 8.6,
+   "p": 10000,
+   "d": 0,
+   "desc": "Ukuran 7.2 x 8.6 cm. Pilih 5 warna default dan atur foto sesuai keinginan.",
+   "img": ""
+  },
+  {
+   "id": "classic",
+   "t": "pol",
+   "n": "Polaroid Classic",
+   "w": 8.8,
+   "h": 10.7,
+   "p": 10000,
+   "d": 0,
+   "desc": "Ukuran 8.8 x 10.7 cm. Pilih 5 warna default dan atur foto sesuai keinginan.",
+   "img": ""
+  },
+  {
+   "id": "wide",
+   "t": "pol",
+   "n": "Polaroid Wide",
+   "w": 10.8,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "desc": "Ukuran 10.8 x 8.6 cm. Pilih 5 warna default dan atur foto sesuai keinginan.",
+   "img": ""
+  },
+  {
+   "id": "wed",
+   "t": "inv",
+   "n": "Undangan Digital",
+   "p": 50000,
+   "d": 0,
+   "desc": "Undangan pernikahan digital. Akses dikirim via WhatsApp setelah pembayaran.",
+   "img": ""
+  },
+  {
+   "id": "bday",
+   "t": "inv",
+   "n": "Undangan Ulang Tahun",
+   "p": 35000,
+   "d": 0,
+   "desc": "Undangan ulang tahun digital. Akses dikirim via WhatsApp setelah pembayaran.",
+   "img": ""
+  },
+  {
+   "id": "c1",
+   "t": "tpl",
+   "th": 0,
+   "n": "Custom · Sakura Dream",
+   "w": 5.4,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Sakura Dream\" ukuran 5.4 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c2",
+   "t": "tpl",
+   "th": 1,
+   "n": "Custom · Ocean Breeze",
+   "w": 7.2,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Ocean Breeze\" ukuran 7.2 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c3",
+   "t": "tpl",
+   "th": 2,
+   "n": "Custom · Golden Hour",
+   "w": 8.8,
+   "h": 10.7,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Golden Hour\" ukuran 8.8 x 10.7 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c4",
+   "t": "tpl",
+   "th": 3,
+   "n": "Custom · Midnight Stars",
+   "w": 10.8,
+   "h": 8.6,
+   "p": 20000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Midnight Stars\" ukuran 10.8 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c5",
+   "t": "tpl",
+   "th": 4,
+   "n": "Custom · Retro Film",
+   "w": 5.4,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Retro Film\" ukuran 5.4 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c6",
+   "t": "tpl",
+   "th": 5,
+   "n": "Custom · Pastel Sprinkle",
+   "w": 7.2,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Pastel Sprinkle\" ukuran 7.2 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c7",
+   "t": "tpl",
+   "th": 6,
+   "n": "Custom · Forest Green",
+   "w": 8.8,
+   "h": 10.7,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Forest Green\" ukuran 8.8 x 10.7 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c8",
+   "t": "tpl",
+   "th": 7,
+   "n": "Custom · Sunset Blush",
+   "w": 10.8,
+   "h": 8.6,
+   "p": 20000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Sunset Blush\" ukuran 10.8 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c9",
+   "t": "tpl",
+   "th": 8,
+   "n": "Custom · Minimal Line",
+   "w": 5.4,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Minimal Line\" ukuran 5.4 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c10",
+   "t": "tpl",
+   "th": 9,
+   "n": "Custom · Vintage Paper",
+   "w": 7.2,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Vintage Paper\" ukuran 7.2 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c11",
+   "t": "tpl",
+   "th": 10,
+   "n": "Custom · Neon Night",
+   "w": 8.8,
+   "h": 10.7,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Neon Night\" ukuran 8.8 x 10.7 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c12",
+   "t": "tpl",
+   "th": 11,
+   "n": "Custom · Lavender Mist",
+   "w": 10.8,
+   "h": 8.6,
+   "p": 20000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Lavender Mist\" ukuran 10.8 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c13",
+   "t": "tpl",
+   "th": 12,
+   "n": "Custom · Coffee Cream",
+   "w": 5.4,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Coffee Cream\" ukuran 5.4 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c14",
+   "t": "tpl",
+   "th": 13,
+   "n": "Custom · Love Letter",
+   "w": 7.2,
+   "h": 8.6,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Love Letter\" ukuran 7.2 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c15",
+   "t": "tpl",
+   "th": 14,
+   "n": "Custom · Confetti Party",
+   "w": 8.8,
+   "h": 10.7,
+   "p": 15000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Confetti Party\" ukuran 8.8 x 10.7 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  },
+  {
+   "id": "c16",
+   "t": "tpl",
+   "th": 15,
+   "n": "Custom · Black & Gold",
+   "w": 10.8,
+   "h": 8.6,
+   "p": 20000,
+   "d": 0,
+   "frame": "",
+   "img": "",
+   "desc": "Desain frame eksklusif KOELSTUDIO \"Black & Gold\" ukuran 10.8 x 8.6 cm. Tanpa pilihan warna default; foto tetap bisa diatur otomatis, utuh tanpa potong, atau manual."
+  }
+ ],
+ "popup": {
+  "on": 1,
+  "title": "Promo Spesial",
+  "text": "Diskon untuk undangan digital minggu ini!",
+  "img": ""
+ }
+}
